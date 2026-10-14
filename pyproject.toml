@@ -1,0 +1,10 @@
+[project]
+name = "bitcoin-unhackable-verification-2026"
+version = "1.0.0"
+description = "Five-stage educational reproduction of Bitcoin security claims, verified against live mainnet data"
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

@@ -1,0 +1,181 @@
+{
+  "mining": [
+    {
+      "difficulty_zeros": 1,
+      "avg_seconds": 5.142600002727704e-05,
+      "avg_hashes": 25,
+      "expected_hashes_theory": 16
+    },
+    {
+      "difficulty_zeros": 2,
+      "avg_seconds": 0.00023678700017626397,
+      "avg_hashes": 211,
+      "expected_hashes_theory": 256
+    },
+    {
+      "difficulty_zeros": 3,
+      "avg_seconds": 0.009838769999987562,
+      "avg_hashes": 10463,
+      "expected_hashes_theory": 4096
+    },
+    {
+      "difficulty_zeros": 4,
+      "avg_seconds": 0.10711846200001673,
+      "avg_hashes": 86722,
+      "expected_hashes_theory": 65536
+    },
+    {
+      "difficulty_zeros": 5,
+      "avg_seconds": 0.3209561759999815,
+      "avg_hashes": 377669,
+      "expected_hashes_theory": 1048576
+    }
+  ],
+  "scaling_ratios": [
+    {
+      "from": 1,
+      "to": 2,
+      "time_ratio": 4.604421888746334,
+      "hash_ratio": 8.44
+    },
+    {
+      "from": 2,
+      "to": 3,
+      "time_ratio": 41.5511408677993,
+      "hash_ratio": 49.58767772511848
+    },
+    {
+      "from": 3,
+      "to": 4,
+      "time_ratio": 10.887383483926563,
+      "hash_ratio": 8.28844499665488
+    },
+    {
+      "from": 4,
+      "to": 5,
+      "time_ratio": 2.996273191449774,
+      "hash_ratio": 4.3549387698623185
+    }
+  ],
+  "validation_cost": [
+    {
+      "n_blocks": 10,
+      "validate_seconds": 1.8917000033980003e-05
+    },
+    {
+      "n_blocks": 50,
+      "validate_seconds": 4.2546999793557916e-05
+    },
+    {
+      "n_blocks": 100,
+      "validate_seconds": 7.959200002005673e-05
+    },
+    {
+      "n_blocks": 200,
+      "validate_seconds": 0.00016333199982909719
+    }
+  ],
+  "nakamoto_catchup": [
+    {
+      "q": 0.1,
+      "z": 1,
+      "P_catchup": 0.20458727394278242
+    },
+    {
+      "q": 0.1,
+      "z": 2,
+      "P_catchup": 0.05097789283933862
+    },
+    {
+      "q": 0.1,
+      "z": 4,
+      "P_catchup": 0.0034552434664851805
+    },
+    {
+      "q": 0.1,
+      "z": 6,
+      "P_catchup": 0.00024280274536292445
+    },
+    {
+      "q": 0.1,
+      "z": 10,
+      "P_catchup": 1.2414021748341497e-06
+    },
+    {
+      "q": 0.3,
+      "z": 1,
+      "P_catchup": 0.627749109982254
+    },
+    {
+      "q": 0.3,
+      "z": 2,
+      "P_catchup": 0.44571709952398375
+    },
+    {
+      "q": 0.3,
+      "z": 4,
+      "P_catchup": 0.2391268577972392
+    },
+    {
+      "q": 0.3,
+      "z": 6,
+      "P_catchup": 0.13211116871353523
+    },
+    {
+      "q": 0.3,
+      "z": 10,
+      "P_catchup": 0.04166047996897937
+    },
+    {
+      "q": 0.45,
+      "z": 1,
+      "P_catchup": 0.9197757876800029
+    },
+    {
+      "q": 0.45,
+      "z": 2,
+      "P_catchup": 0.8777174393950844
+    },
+    {
+      "q": 0.45,
+      "z": 4,
+      "P_catchup": 0.8156138805208749
+    },
+    {
+      "q": 0.45,
+      "z": 6,
+      "P_catchup": 0.7661054588915404
+    },
+    {
+      "q": 0.45,
+      "z": 10,
+      "P_catchup": 0.6854240103232615
+    },
+    {
+      "q": 0.51,
+      "z": 1,
+      "P_catchup": 1.0
+    },
+    {
+      "q": 0.51,
+      "z": 2,
+      "P_catchup": 1.0
+    },
+    {
+      "q": 0.51,
+      "z": 4,
+      "P_catchup": 1.0
+    },
+    {
+      "q": 0.51,
+      "z": 6,
+      "P_catchup": 1.0
+    },
+    {
+      "q": 0.51,
+      "z": 10,
+      "P_catchup": 1.0
+    }
+  ],
+  "total_seconds": 0.43915554400018664
+}

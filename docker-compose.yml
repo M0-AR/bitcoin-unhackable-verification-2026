@@ -1,0 +1,19 @@
+services:
+  reproduce:
+    build: .
+    volumes:
+      - ./data:/app/data
+    command: python -m src.experiments.run_all_5_stages --difficulty 3
+  benchmark:
+    build: .
+    volumes:
+      - ./data:/app/data
+    command: python -m src.experiments.benchmark_difficulty
+  verify-live:
+    build: .
+    volumes:
+      - ./data:/app/data
+    command: python -m src.experiments.verify_live
+  tests:
+    build: .
+    command: python -m pytest -q

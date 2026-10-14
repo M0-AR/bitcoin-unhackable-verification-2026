@@ -1,0 +1,20 @@
+{
+  "captured_at_utc": "2026-10-14T09:06:57Z",
+  "mempool": {
+    "tip_height_error": "<urlopen error _ssl.c:993: The handshake operation timed out>",
+    "difficulty_adjustment_error": "<urlopen error _ssl.c:993: The handshake operation timed out>",
+    "hashrate_3d_error": "<urlopen error _ssl.c:993: The handshake operation timed out>"
+  },
+  "price": {
+    "btc_usd": 83410,
+    "source": "coingecko"
+  },
+  "reference_values_oct2026": {
+    "btc_usd": 83432,
+    "difficulty_T": 132.72,
+    "hashrate_EHs": "950-1077 (\u22481 ZH/s peak)",
+    "next_retarget": "2026-10-16 \u2248 +4.5%",
+    "block": 971370,
+    "note": "cross-checked via CoinWarz/mempool.space/startmining 13-14 Oct 2026 + CoinGecko"
+  }
+}
