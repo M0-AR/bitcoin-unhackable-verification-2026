@@ -20,6 +20,16 @@
 - Compute real SHA-256 fingerprints, mine a block with one click, reveal Zico's four attacks, explore the 604.5-second emergence chart, and take the **10-question quiz from scratch to pro** with instant feedback.
 - After you push to GitHub, enable it as a website in 2 minutes: **Settings → Pages → Deploy from a branch → `main` / `/ (root)` → Save**, then share `https://<you>.github.io/<repo>/preview.html`. See [Put it on the web](#-put-it-on-the-web-github-pages-2-minutes).
 
+> **Clickable links (works under either Pages source setting — mirrors ship at both paths):**
+>
+> | Link | Raw file | Renders in browser |
+> |---|---|---|
+> | [Site home `/`](https://m0-ar.github.io/bitcoin-unhackable-verification-2026/) | `index.html` (redirects to lab) | landing + auto-redirect |
+> | [Lab `/preview.html`](https://m0-ar.github.io/bitcoin-unhackable-verification-2026/preview.html) | `preview.html` | full interactive lab + quiz |
+> | [Mirror `/docs/preview.html`](https://m0-ar.github.io/bitcoin-unhackable-verification-2026/docs/preview.html) | `docs/preview.html` (identical copy) | same lab, alternate path |
+>
+> If one link 404s while another 200s, your Pages **source** (`/` vs `/docs`) doesn't match the path — see [`docs/PAGES_404_PLAYBOOK.md`](docs/PAGES_404_PLAYBOOK.md) for the 10-second diagnosis.
+
 ![Interactive lab hero](docs/screenshots/preview-hero.png)
 *The live lab: CEO summary, live-data cards, fingerprint playground, quiz. Full page: [`preview-full.png`](docs/screenshots/preview-full.png).*
 

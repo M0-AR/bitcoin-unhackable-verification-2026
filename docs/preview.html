@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Is Bitcoin Truly Unhackable? — Interactive Lab</title>
+<meta name="description" content="From scratch to pro: hash, blockchain, mining, hacking attempts and the decentralization secret — measured, live-anchored, interactive.">
+<style>
+:root{--bg:#0b0e14;--card:#131826;--line:#232c44;--txt:#e8ecf4;--mut:#9aa6c2;--acc:#f7931a;--grn:#22c55e;--red:#ef4444;--blu:#38bdf8}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:radial-gradient(1200px 600px at 80% -10%,#1c2540 0%,var(--bg) 55%);color:var(--txt);line-height:1.6}
+.wrap{max-width:1080px;margin:0 auto;padding:24px}
+.hero{border:1px solid var(--line);border-radius:20px;padding:36px;background:linear-gradient(180deg,#141b30,#0e1322);text-align:center}
+.badge{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:4px 12px;margin:4px;color:var(--mut);font-size:13px}
+h1{font-size:clamp(28px,5vw,48px);margin:12px 0}.sub{color:var(--mut);max-width:760px;margin:0 auto}
+.btn{display:inline-block;background:var(--acc);color:#111;font-weight:800;border-radius:12px;padding:12px 20px;margin:8px 6px 0;text-decoration:none}
+.btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:20px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.card b{font-size:22px}.mut{color:var(--mut);font-size:14px}
+section{margin:34px 0}h2{font-size:28px;margin:0 0 8px}h3{margin:18px 0 6px}
+.stage{border:1px solid var(--line);border-radius:16px;padding:20px;background:var(--card);margin:14px 0}
+code,pre{background:#0a0e18;border:1px solid var(--line);border-radius:10px;padding:2px 6px;font-size:13.5px}pre{padding:12px;overflow:auto}
+input,select,button{font-size:15px}input[type=text]{width:100%;background:#0a0e18;color:var(--txt);border:1px solid var(--line);border-radius:10px;padding:10px}
+button.act{background:var(--blu);border:0;border-radius:10px;padding:10px 16px;font-weight:700;cursor:pointer;color:#06121f}
+button.act:hover{filter:brightness(1.1)}
+.hash{word-break:break-all;font-family:ui-monospace,Menlo,Consolas,monospace;color:#a5f3c0}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{border:1px solid var(--line);padding:8px;text-align:left}th{background:#0d1322}
+.bar{height:14px;background:linear-gradient(90deg,var(--acc),#ffd166);border-radius:7px}
+.quizQ{border:1px solid var(--line);border-radius:14px;padding:14px;margin:10px 0;background:#10162a}
+.opt{display:block;background:#0a0e18;border:1px solid var(--line);border-radius:10px;padding:10px;margin:6px 0;cursor:pointer;width:100%;text-align:left;color:var(--txt)}
+.opt:hover{border-color:var(--blu)}.opt.ok{border-color:var(--grn);background:#0d2818}.opt.no{border-color:var(--red);background:#2a1215}
+.exp{display:none;color:var(--mut);font-size:14px}.show{display:block}
+.score{font-size:20px;font-weight:800}
+footer{color:var(--mut);font-size:13px;text-align:center;margin:30px 0}
+.kbd{border:1px solid var(--line);border-bottom-width:3px;border-radius:6px;padding:0 6px;background:#0a0e18}
+.toc a{color:var(--blu)}
+@media(max-width:640px){.hero{padding:22px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero" id="top">
+<div>
+<span class="badge">Python 3.12</span>
+<span class="badge">Docker Compose</span>
+<span class="badge">MIT License</span>
+<span class="badge">Live-anchored Oct 2026</span>
+</div>
+<h1>Is Bitcoin Truly Unhackable?</h1>
+<p class="sub"><b>CEO summary in 30 seconds:</b> we rebuilt Bitcoin's security argument from zero — fingerprint, chain, mining, four hacker attempts, and the decentralization secret — <b>measured every claim in code</b>, and checked it against <b>live mainnet data (BTC ≈ $83.4k, difficulty 132.72T, ~1 ZH/s)</b>. Result: small chains fall in seconds, Bitcoin stands because rewriting it costs <b>billions plus a country's electricity</b> — and the loot would crash on success. Unhackable means <b>economically irrational to attack</b>.</p>
+<p><a class="btn" href="#quiz">Take the 5-minute quiz</a><a class="btn ghost" href="#try">Run it yourself in 30s</a></p>
+<p class="mut">Educational only — not investment advice. Toy model: no real coins, no signatures, no network.</p>
+</div>
+
+<div class="grid" id="live">
+<div class="card"><div class="mut">BTC price (live check)</div><b id="px">~ $83,410</b><div class="mut">30-day band $75.6k–$86.4k · <span id="pxlive">checking…</span></div></div>
+<div class="card"><div class="mut">Difficulty</div><b>132.72 T</b><div class="mut">→ ~138.66 T (+4.5%) at block 971,712 · ~16 Oct 2026</div></div>
+<div class="card"><div class="mut">Hashrate</div><b>~1 ZH/s</b><div class="mut">950–1,077 EH/s · block 971,370 · ~10 min/block</div></div>
+<div class="card"><div class="mut">51% attack cost</div><b>~$6 B / week</b><div class="mut">plus grid-scale power — and the price would collapse</div></div>
+</div>
+
+<p class="toc mut">On this page: <a href="#s1">1 Fingerprint</a> · <a href="#s2">2 Chain</a> · <a href="#s3">3 Mining</a> · <a href="#s4">4 Attacks</a> · <a href="#s5">5 Secret</a> · <a href="#bench">Benchmarks</a> · <a href="#quiz">Quiz</a> · <a href="#pages">GitHub Pages</a></p>
+
+<section id="s1"><h2>Stage 1 — Fingerprint: the hash</h2>
+<div class="stage">
+<p><b>Idea in one sentence:</b> a hash is a fingerprint for data — change one letter and the whole fingerprint changes. Bitcoin uses <b>SHA-256</b> (64 hex characters). Type anything and compute its real SHA-256 right here:</p>
+<input type="text" id="hin" value="Ahmed sent Mohammed 10">
+<p><button class="act" onclick="doHash()">Compute fingerprint</button></p>
+<p class="hash" id="hout"></p>
+<p class="mut" id="hxp">Try: change <span class="kbd">10</span> to <span class="kbd">90</span> and press the button. Expect ~half the characters to flip (we measured 62/64 on this pair — avalanche).</p>
+<p><b>Three properties to remember:</b> (1) same input → same output, always; (2) tiny change → unrecognizable output; (3) one-way — you cannot reconstruct the input from the fingerprint. That is why a ledger row can be <i>sealed</i>.</p>
+</div></section>
+
+<section id="s2"><h2>Stage 2 — Chain: why "blockchain"</h2>
+<div class="stage">
+<p>Every block stores <b>two</b> fingerprints: its own, and the <b>previous block's</b>. Change page 1 and page 2 still quotes the old fingerprint — mismatch, exposed. That is the whole chain.</p>
+<pre>block 0 (genesis)  prev=0000…0000  hash=3a96…      "network start"
+block 1            prev=3a96…      hash=0007…      "Ahmed sent Mohamed 10"
+block 2            prev=0007…      hash=0009…      "Mohamed sent Sarah 7"   ← breaks here if block 1 edited
+block 3            prev=0009…      hash=000b…      "Sarah sent Yousef 3"</pre>
+<p>Our validator asks three questions per block — <b>Q1</b> stored == recomputed? <b>Q2</b> prev == previous hash? <b>Q3</b> enough leading zeros? Any "no" = forgery. Verification is <b>O(n), ~0.8 µs/block</b> — cheap to check, expensive to write. That asymmetry is the trick.</p>
+</div></section>
+
+<section id="s3"><h2>Stage 3 — Mining: why the electricity</h2>
+<div class="stage">
+<p>Computing a hash is trivial — so rewriting would take seconds. Bitcoin's fix: a block counts <b>only if its hash starts with enough zeros</b>. No shortcut exists; the machine brute-forces a meaningless number called the <b>nonce</b>, like a suitcase lock. Try it (toy difficulty):</p>
+<p>Difficulty (leading zeros): <select id="dif"><option>1</option><option selected>2</option><option>3</option></select>
+<button class="act" onclick="doMine()">Mine one block in your browser</button></p>
+<p id="mout" class="mut">Press mine — your laptop does what billion-dollar farms do, just slower.</p>
+<p><b>Measured law (this repo, 10 trials):</b> difficulty 1→28 hashes, 2→388, 3→4,619, 4→66,474 vs theory 16/256/4096/65536 — each extra zero ≈ <b>16× work</b> (hex alphabet). Local speed ≈ 1.25 MH/s. Scale that to mainnet (2⁷⁹ ÷ 10²¹ H/s) and you get <b>604.5 s ≈ 10 minutes</b> — the toy <i>predicts</i> Bitcoin's heartbeat. Difficulty retargets every 2,016 blocks (~2 weeks) to hold it.</p>
+</div></section>
+
+<section id="s4"><h2>Stage 4 — Zico attacks (you are the hacker)</h2>
+<div class="stage">
+<p>Four attempts, exactly as narrated. Click each to reveal the outcome our code measures:</p>
+<p><button class="act" onclick="rev('a1')">Attempt 1: edit 10 → 1000</button>
+<button class="act" onclick="rev('a2')">Attempt 2: + fresh hash, no mining</button>
+<button class="act" onclick="rev('a3')">Attempt 3: re-mine one block</button>
+<button class="act" onclick="rev('a4')">Attempt 4: re-mine everything</button></p>
+<p id="a1" class="mut" style="display:none">❌ <b>Caught in ~10 µs at Q1</b> — stored hash ≠ recomputed. Instant.</p>
+<p id="a2" class="mut" style="display:none">❌ <b>Caught at Q3</b> — fresh hash has no leading zeros, plus Q2 breaks downstream.</p>
+<p id="a3" class="mut" style="display:none">⚠️ <b>Block 1 passes, block 2 fails Q2</b> — you must re-mine <i>every</i> later block. The chain drags you forward.</p>
+<p id="a4" class="mut" style="display:none">✅ <b>Passes on the toy in milliseconds–seconds</b> — honest admission! Small chain + small difficulty = hackable. Security comes only from Stage 5: scale + copies.</p>
+</div></section>
+
+<section id="s5"><h2>Stage 5 — The secret: thousands of copies</h2>
+<div class="stage">
+<p>There is no single ledger. The grocer, Umm Ahmed, the pharmacy — thousands of nodes each hold a copy, and all follow the <b>longest <i>valid</i> chain</b> (most accumulated work). While Zico re-mines history, honest nodes extend the tip (7 blocks vs his 5) — his valid forgery is <b>rejected for being shorter</b>. To win he must out-hash the planet <i>continuously</i> (&gt;50%), i.e. billions in ASICs + national electricity — and success would crash the price of the loot. Attack cost ≫ attack value. That is the genius: security from <b>economics</b>, not passwords.</p>
+<table><tr><th>Attacker share (q)</th><th>1 conf</th><th>2 conf</th><th>6 conf</th><th>10 conf</th></tr>
+<tr><td>10%</td><td>0.20</td><td>0.06</td><td>~0</td><td>~0</td></tr>
+<tr><td>30%</td><td>0.63</td><td>0.45</td><td><b>0.13</b></td><td>0.04</td></tr>
+<tr><td>45%</td><td>0.92</td><td>0.88</td><td>0.77</td><td>0.69</td></tr>
+<tr><td>≥51%</td><td>1</td><td>1</td><td>1</td><td>1</td></tr></table>
+<p class="mut">Nakamoto catch-up probability (computed by this repo). Below 50%, each confirmation multiplies safety — "wait 6 confirmations" sits on the exponential's knee. Above 50%, no depth saves you.</p>
+</div></section>
+
+<section id="bench"><h2>Benchmarks at a glance</h2>
+<div class="stage">
+<p class="mut">Mean hashes to mine (log scale). Theory 16<sup>d</sup> vs measured — they converge as difficulty grows.</p>
+<div class="mut">d=1 · 28 <div class="bar" style="width:8%"></div></div>
+<div class="mut">d=2 · 388 <div class="bar" style="width:22%"></div></div>
+<div class="mut">d=3 · 4,619 <div class="bar" style="width:45%"></div></div>
+<div class="mut">d=4 · 66,474 <div class="bar" style="width:80%"></div></div>
+<div class="mut">mainnet ≈ 2⁷⁹ ≈ 6×10²³ <div class="bar" style="width:100%"></div></div>
+<p>Full tables + timings: run <code>python -m src.experiments.benchmark_difficulty</code> → <code>data/benchmarks/results.json</code>.</p>
+</div></section>
+
+<section id="try"><h2>Try it yourself (30 seconds)</h2>
+<div class="stage">
+<pre>git clone &lt;this-repo&gt; &amp;&amp; cd bitcoin-unhackable-verification-2026
+docker compose run --rm reproduce     # 5 stages + Zico transcript
+docker compose run --rm benchmark      # 16x law + Nakamoto table
+docker compose run --rm verify-live    # live BTC price snapshot
+docker compose run --rm tests          # 6 guards, all must pass</pre>
+<p class="mut">No Docker? <code>pip install -r requirements.txt &amp;&amp; python -m pytest -q</code> then the same <code>python -m src.experiments.*</code> commands.</p>
+</div></section>
+
+<section id="quiz"><h2>Interactive quiz — from scratch to pro 🏁</h2>
+<p class="mut">10 questions, instant feedback, no signup. Score ≥ 8 and you know more than most interview candidates.</p>
+<div id="qbox"></div>
+<p><button class="act" onclick="score()">Show my score</button> <span class="score" id="sc"></span></p>
+</section>
+
+<section id="pages"><h2>Put this page on the web (GitHub Pages, 2 minutes)</h2>
+<div class="stage">
+<ol>
+<li>Push this repo to GitHub (public).</li>
+<li>Open <b>Settings → Pages</b> → <b>Deploy from a branch</b> → Branch <b>main</b>, folder <b>/ (root)</b> → Save.</li>
+<li>Open <b>https://&lt;you&gt;.github.io/&lt;repo&gt;/preview.html</b> — this exact page, live. Share that link in the README demo section.</li>
+<li>Optional: tick <b>Enforce HTTPS</b>; custom domain under <b>Settings → Pages → Custom domain</b> if you own one.</li>
+</ol>
+<p class="mut">Why root? <code>preview.html</code> lives at the repo root next to <code>README.md</code>, so Pages serves it with zero build step. Works 2026 with zero actions required.</p>
+</div></section>
+
+<footer>Built from scratch for learning · SHA-256 demo runs 100% in your browser · Data: Oct-2026 mainnet snapshots quoted in README · MIT License</footer>
+</div>
+<script>
+async function shahex(s){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")}
+async function doHash(){const v=document.getElementById("hin").value;document.getElementById("hout").textContent="computing…";document.getElementById("hout").textContent=await shahex(v)}
+doHash();
+async function doMine(){const d=+document.getElementById("dif").value,out=document.getElementById("mout");out.textContent="mining… (difficulty "+d+")";let n=0;const t0=performance.now();while(true){const h=await shahex("demo|"+n);if(h.startsWith("0".repeat(d))){out.innerHTML="✅ nonce=<b>"+n+"</b> hash=<span class='hash'>"+h+"</span> in "+((performance.now()-t0)/1000).toFixed(3)+"s ("+(n+1)+" tries)";break}n++;if(n%400===0)await new Promise(r=>setTimeout(r));if(n>2000000){out.textContent="stopped after 2M tries";break}}}
+function rev(id){document.getElementById(id).style.display="block"}
+fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd").then(r=>r.json()).then(j=>{if(j.bitcoin&&j.bitcoin.usd){document.getElementById("px").textContent="$"+Number(j.bitcoin.usd).toLocaleString();document.getElementById("pxlive").textContent="live ✓"}}).catch(()=>{document.getElementById("pxlive").textContent="offline — showing Oct-2026 snapshot"});
+const QS=[
+["What does SHA-256 output for ANY input?","A fixed 64-hex-char fingerprint",["A file the same size as input","A fixed 64-hex-char fingerprint","The original text compressed","A password hint"],"Same length out, every time — that fixed size is what makes fingerprints comparable.",],
+["Same input twice → ?","Identical hash",["Different hash","Identical hash","Error","Random each run"],"Determinism: the network must agree on validity.",],
+["You change '10' to '90'. What happens?","Whole fingerprint changes",["One char changes","Whole fingerprint changes","Nothing changes","Hash gets longer"],"Avalanche: ~62/64 chars flipped in our measurement.",],
+["Can you recover the text from its hash?","No — one-way",["Yes, decode it","Yes, with Google","No — one-way","Only admins can"],"Preimage resistance: like a face from a fingerprint — impossible.",],
+["Each block stores…","Its hash + previous hash",["Only its data","Its hash + previous hash","Only the nonce","Nothing — hashes are secret"],"Linkage: quoting the previous fingerprint is the chain.",],
+["Block 0 is called…","Genesis (prev = zeros)",["Genesis (prev = zeros)","Zico","Nonce","Mempool"],"No block before it, so prev is all zeros.",],
+["A valid block must…","Beat difficulty + link + match",["Just exist","Beat difficulty + link + match","Be big","Be encrypted"],"Q1/Q2/Q3: recompute, linkage, proof-of-work.",],
+["Mining is…","Brute-force nonce for leading zeros",["Solving equations cleverly","Brute-force nonce for leading zeros","Voting","Encrypting wallets"],"No shortcut — suitcase-lock trial and error.",],
+["Each extra hex zero costs about…","16× more work",["2×","16× more work","Nothing extra","Half the work"],"P(zero)=1/16 per digit — exponential.",],
+["Why can't Zico win on mainnet?","Must out-hash the world + longest-valid rule",["He forgot the password","Must out-hash the world + longest-valid rule","Hashes expire","Bitcoin has antivirus"],"Shorter valid forgery loses; majority hash costs billions + grid power.",]];
+let ANS=[];
+(function render(){const b=document.getElementById("qbox");QS.forEach((q,i)=>{const d=document.createElement("div");d.className="quizQ";d.innerHTML="<b>Q"+(i+1)+". "+q[0]+"</b>";q[2].forEach(o=>{const btn=document.createElement("button");btn.className="opt";btn.textContent=o;btn.onclick=()=>{ANS[i]=o;[...d.querySelectorAll(".opt")].forEach(x=>x.classList.remove("ok","no"));if(o===q[1]){btn.classList.add("ok")}else{btn.classList.add("no")}[...d.querySelectorAll(".opt")].forEach(x=>{if(x.textContent===q[1])x.classList.add("ok")});const e=d.querySelector(".exp");e.textContent=(o===q[1]?"✅ ":"❌ ")+q[3];e.classList.add("show")};d.appendChild(btn)});const e=document.createElement("div");e.className="exp";d.appendChild(e);b.appendChild(d)})})();
+function score(){let s=0;QS.forEach((q,i)=>{if(ANS[i]===q[1])s++});const el=document.getElementById("sc");el.textContent=s+" / "+QS.length+(s>=8?" 🏆 pro — you beat most interview candidates!":s>=5?" 💪 solid — re-read Stages 3 & 5":" 🌱 keep going — replay Stages 1–3 above");el.scrollIntoView({behavior:"smooth",block:"center"})}
+</script>
+</body>
+</html>
